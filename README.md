@@ -38,4 +38,4 @@ rails s
 rspec .
 ```
 
-Deployed app on heroku: [Expense controller app](https://spendings-controller-app.herokuapp.com/)
+Deployed app on heroku: [Spending controller app](https://spendings-controller-app.herokuapp.com/)
