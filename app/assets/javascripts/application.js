@@ -1,0 +1,9 @@
+//= require jquery
+//= require jquery_ujs
+//= require bootstrap-sprockets
+//= require bootstrap-datepicker
+//= require turbolinks
+//= require day_picker
+//= require month_picker
+//= require year_picker
+//= require_tree .
