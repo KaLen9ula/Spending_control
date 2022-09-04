@@ -1,0 +1,28 @@
+.card.bg-light.mt-4.mx-auto.w-50
+  .card-header.bg-white
+    %b
+      Spending №#{@spending.id}, created #{time_ago_in_words(@spending.created_at)} ago
+  .card-body
+    %p.card-text
+      Title:
+      %b= @spending.title
+    %p.card-text
+      Description:
+      %b= @spending.description
+    %p.card-text
+      Category:
+      %b= @spending.category
+    %p.card-text
+      Amount: $
+      %b= @spending.amount
+    %p.card-text
+      Spent in:
+      %b= @spending.created_at
+  %p.mx-auto
+    - user_id = !user_signed_in? || current_user.id; if @spending.user_id == user_id then
+      = link_to  "Delete", spending_path(@spending), |
+          method: :delete,                            |
+          data: { confirm: 'Are you sure?'},          |
+        class: "btn btn-danger btn-sm"                |
+      = link_to " Edit", edit_spending_path(@spending), class: "btn btn-info btn-sm edit-icon"
+      = link_to "All spendings", spendings_path, class: "btn btn-secondary btn-sm"

@@ -1,0 +1,37 @@
+.card.mt-4.mx-auto
+  .card-body.mb-10
+    %h3.card-title.text-center
+      Your spendings
+    .text-right
+      %a.btn.btn-success.add-new-icon{:href => new_spending_path} Add new
+    %button#dropdownMenuButton.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+      Sort by category
+    .dropdown-menu
+      %a.dropdown-item{href: spendings_path, class: !params[:category] ? "active" : ""}
+        All
+      - current_user.spendings.pluck(:category).each do |category|
+        %a.dropdown-item{href: spendings_path(category: category), class: params[:category] == category ? "active" : ""}
+          = category
+    %table#spendings_table.table.mt-4
+      %thead
+        %tr{:role => "row"}
+          %th Title
+          %th Description
+          %th Category
+          %th Amount
+          %th Created at
+          %th
+      %tbody#spendings
+        - @spendings.each_with_index do | spending, i |
+          = render partial: "index_spendings", locals: {spending: spending, i: i}
+    = form_with(model: @spending, remote: true, url: spendings_path, method: "GET", class: "new-article-form", id: "daypickerform") do |form|
+      %input#daypicker{:type => "text", name: 'date', :placeholder => "Select day"}
+      = form.hidden_field :group_by, value: :day
+    = form_with(model: @spending, remote: true, url: spendings_path, method: "GET", class: "new-article-form", id: "monthpickerform") do |form|
+      %input#monthpicker{:type => "text", name: 'date', :placeholder => "Select month"}
+      = form.hidden_field :group_by, value: :month
+    = form_with(model: @spending, remote: true, url: spendings_path, method: "GET", class: "new-article-form", id: "yearpickerform") do |form|
+      %input#yearpicker{:type => "text", name: 'date', :placeholder => "Select year"}
+      = form.hidden_field :group_by, value: :year
+    .text-right
+      = link_to "Delete all", spendings_destroyes_path, class: "btn btn-success", title: "Click to delete this spending", method: :delete, data: { confirm: 'Are you sure?' }
