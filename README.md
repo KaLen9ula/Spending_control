@@ -1,7 +1,5 @@
 # Spendings controller app
 
-This app is a test task to Evowill
-
 App installation on your local device
 
 1. Required tools
